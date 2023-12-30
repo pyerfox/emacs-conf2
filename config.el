@@ -72,6 +72,7 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
+  (setq evil-want-C-i-jump nil)
   (setq evil-vsplit-window-right t)
   (setq evil-split-window-below t)
   (evil-mode))
@@ -83,3 +84,104 @@
   (evil-collection-init))
 
 (use-package evil-tutor)
+
+;; (use-package general
+;;   :config
+;;   (general-evil-setup)
+
+;;   (general-create-definer my-leader-def
+;;     :prefix "SPC")
+
+;;   (my-leader-def
+;;     :states 'normal
+;;     :keymaps 'override
+;;     "b" '(:ignore t :wk "buffer")
+;;     "bb" '(switch-to-buffer :wk "Switch buffer")
+;;     "bk" '(kill-this-buffer :wk "Kill this buffer")
+;;     "bn" '(next-buffer :wk "Next buffer")
+;;     "bp" '(previous-buffer :wk "Previous buffer")
+;;     "br" '(revert-buffer :wk "Reload buffer") ))
+
+(setq gc-cons-threshold (* 1024 1024 100))
+(setq read-process-output-max (* 1024 1024))
+
+(global-unset-key (kbd "S-SPC"))
+
+(setq make-backup-files nil)
+(setq create-lockfiles nil)
+(setq auto-save-default nil)
+(setq select-enable-clipboard nil)
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+(setq inhibit-startup-message t)
+(setq visual-bell t)
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+(column-number-mode)
+(global-display-line-numbers-mode t)
+(dolist (mode '(org-mode-hook
+	  term-mode-hook
+	  shell-mode-hook
+	  eshell-mode-hook))
+(add-hook mode (lambda () (display-line-numbers-mode -1))))
+
+(set-face-attribute 'default nil
+  :font "Hack"
+  :height 100
+  :weight 'medium)
+(set-face-attribute 'variable-pitch nil
+  :font "Ubuntu"
+  :height 110
+  :weight 'medium)
+(set-face-attribute 'fixed-pitch nil
+  :font "Hack"
+  :height 100
+  :weight 'medium)
+;; Makes commented text and keywords italics.
+;; This is working in emacsclient but not emacs.
+;; Your font must have an italic face available.
+(set-face-attribute 'font-lock-comment-face nil
+  :slant 'italic)
+(set-face-attribute 'font-lock-keyword-face nil
+  :slant 'italic)
+
+;; This sets the default font on all graphical frames created after restarting Emacs.
+;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
+;; are not right unless I also add this method of setting the default font.
+(add-to-list 'default-frame-alist '(font . "Hack-10"))
+
+(set-fontset-font "fontset-default" 'hangul '("D2Coding" . "unicode-bmp"))
+
+;; Uncomment the following line if line spacing needs adjusting.
+(setq-default line-spacing 0.12)
+
+(load-theme 'tsdh-dark t)
+
+;; (use-package toc-org
+;;   :commands toc-org-enable
+;;   :init (add-hook 'org-mode-hook 'toc-org-enable))
+
+(add-hook 'org-mode-hook 'org-indent-mode)
+(use-package org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+(use-package which-key
+  :init (which-key-mode 1)
+  :config
+  (setq wich-key-side-window-location 'bottom
+	which-key-sort-order #'which-key-key-order-alpha
+	which-key-sort-uppercase-first nil
+	which-key-add-column-padding 1
+	which-key-max-display-columns nil
+	which-key-min-display-lines 6
+	which-key-side-window-slot -10
+	which-key-side-window-max-height 0.25
+	which-key-idle-delay 0.8
+	which-key-max-description-length 25
+	which-key-allow-imprecise-window-fit t
+	which-key-separator " → " ))
+
+
