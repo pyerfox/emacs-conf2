@@ -75,6 +75,7 @@
   (setq evil-want-C-i-jump nil)
   (setq evil-vsplit-window-right t)
   (setq evil-split-window-below t)
+  (setq evil-undo-system 'undo-redo)
   (evil-mode))
 
 (use-package evil-collection
@@ -84,6 +85,8 @@
   (evil-collection-init))
 
 (use-package evil-tutor)
+
+(use-package diminish)
 
 (load-file (concat user-emacs-directory "vendor/buffer-move.el"))
 
@@ -103,7 +106,6 @@
     :global-prefix "S-SPC")
 
   (my-leader-def
-      "." '(find-file :wk "Find file")
       "f c" '((lambda ()
               (interactive)
               (find-file (expand-file-name "config.org" user-emacs-directory)))
@@ -184,6 +186,7 @@
 (setq visual-bell t)
 
 (electric-indent-mode -1)
+(setq org-edit-src-content-indentation 0)
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -192,7 +195,7 @@
 (column-number-mode)
 (global-display-line-numbers-mode t)
 (dolist (mode '(org-mode-hook
-          term-mode-hook
+		term-mode-hook
           vterm-mode-hook
           shell-mode-hook
           eshell-mode-hook))
@@ -236,9 +239,13 @@
   :commands toc-org-enable
   :init (add-hook 'org-mode-hook 'toc-org-enable))
 
-(add-hook 'org-mode-hook 'org-indent-mode)
-(use-package org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(with-eval-after-load 'diminish
+  (diminish 'org-indent-mode)
+  (add-hook 'org-mode-hook 'org-indent-mode))
+
+(use-package org-bullets
+  :hook 
+  (org-mode . org-bullets-mode))
 
 ;; <a <c <C <e <E <h <l <q <s <v
 (require 'org-tempo)
@@ -280,6 +287,7 @@
 
 (use-package which-key
   :init (which-key-mode 1)
+  :diminish
   :config
   (setq wich-key-side-window-location 'bottom
         which-key-sort-order #'which-key-key-order-alpha
@@ -291,7 +299,7 @@
         which-key-side-window-max-height 0.25
         which-key-idle-delay 0.8
         which-key-max-description-length 50
-        which-key-allow-imprecise-window-fit t
+        which-key-allow-imprecise-window-fit nil
         which-key-separator " → " ))
 
 (use-package sudo-edit
@@ -301,11 +309,13 @@
     "f U" '(sudo-edit :wk "Sudo edit file")))
 
 (use-package rainbow-mode
+  :diminish
   :hook
   ((org-mode prog-mode) . rainbow-mode))
 
 (use-package counsel
   :after ivy
+  :diminish
   :config (counsel-mode))
 
 (use-package ivy
@@ -316,6 +326,7 @@
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format ("(%d/%d) "))
   (setq enable-recursive-minibuffers t)
+  :diminish
   :config
   (ivy-mode))
 
@@ -331,5 +342,27 @@
   (ivy-virtual-abbreviate 'full)
   (ivy-rich-switch-buffer-align-virtual-buffer t)
   (ivy-rich-path-style 'abbrev))
+
+(use-package company
+  :defer 2
+  :diminish
+  :custom
+  (company-begin-commands '(self-insert-command))
+  (company-idle-delay .1)
+  (company-minimum-prefix-length 2)
+  (company-show-numbers t)
+  (company-tooltip-align-annotations 't)
+  (global-company-mode t))
+
+(use-package company-box
+  :after company
+  :diminish
+  :hook (company-mode . company-box-mode))
+
+(use-package flycheck
+  :ensure t
+  :defer t
+  :diminish
+  :init (global-flycheck-mode))
 
 
