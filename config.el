@@ -106,63 +106,71 @@
     :global-prefix "S-SPC")
 
   (my-leader-def
-      "f c" '((lambda ()
+    "f c" '((lambda ()
               (interactive)
               (find-file (expand-file-name "config.org" user-emacs-directory)))
-              :wk "Edit emacs config")
-      "f r" '(counsel-recentf :wk "Find recent files")
-      "TAB TAB" '(comment-line :wk "Comment Lines"))
+            :wk "Edit emacs config")
+    "f r" '(counsel-recentf :wk "Find recent files")
+    "TAB TAB" '(comment-line :wk "Comment Lines"))
 
   (my-leader-def
-      "b" '(:ignore t :wk "Buffer")
-      "b b" '(switch-to-buffer :wk "Switch buffer")
-      "b i" '(ibuffer :wk "Ibuffer")
-      "b k" '(kill-this-buffer :wk "Kill this buffer")
-      "b n" '(next-buffer :wk "Next buffer")
-      "b p" '(previous-buffer :wk "Previous buffer")
-      "b r" '(revert-buffer :wk "Reload buffer"))
+    "b" '(:ignore t :wk "Buffer")
+    "b b" '(switch-to-buffer :wk "Switch buffer")
+    "b i" '(ibuffer :wk "Ibuffer")
+    "b k" '(kill-this-buffer :wk "Kill this buffer")
+    "b n" '(next-buffer :wk "Next buffer")
+    "b p" '(previous-buffer :wk "Previous buffer")
+    "b r" '(revert-buffer :wk "Reload buffer"))
+  
+  (my-leader-def
+    "d" '(:ignore t :wk "Dired")
+    "d d" '(dired :wk "Open dired")
+    "d j" '(dired-jump :wk "Dired jump to current")
+    "d n" '(neotree-dir :wk "Open directory in neotree"))
+    ;; "d p" '(peep-dired :wk "Peep-dired"))
 
   (my-leader-def
-      "e" '(:ignore t :wk "Evaluate/Eshell")
-      "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
-      "e d" '(eval-defun :wk "Evaluate defun containing or after point")
-      "e e" '(eval-expression :wk "Evaluate and elisp expression")
-      "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
-      "e r" '(eval-region :wk "Evaluate elisp in region")
-      "e s" '(eshell :wk "Eshell")
-      "e h" '(counsel-esh-history :wk "Eshell"))
-
-
-  (my-leader-def
-      "w" '(:ignore t :wk "Windows")
-      ;; split
-      "w c" '(evil-window-delete :wk "Close window")
-      "w n" '(evil-window-new :wk "New window")
-      "w s" '(evil-window-split :wk "Horizontal split window")
-      "w v" '(evil-window-vsplit :wk "Vertical split window")
-      ;; motion
-      "w h" '(evil-window-left :wk "Window left")
-      "w j" '(evil-window-down :wk "Window down")
-      "w k" '(evil-window-up :wk "Window up")
-      "w l" '(evil-window-right :wk "Window right")
-      "w w" '(evil-window-next :wk "Window next")
-      ;; move
-      "w H" '(buf-move-left :wk "Buffer move left")
-      "w J" '(buf-move-down :wk "Buffer move down")
-      "w K" '(buf-move-up :wk "Buffer move up")
-      "w L" '(buf-move-right :wk "Buffer move right"))
+    "e" '(:ignore t :wk "Evaluate/Eshell")
+    "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
+    "e d" '(eval-defun :wk "Evaluate defun containing or after point")
+    "e e" '(eval-expression :wk "Evaluate and elisp expression")
+    "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
+    "e r" '(eval-region :wk "Evaluate elisp in region")
+    "e s" '(eshell :wk "Eshell")
+    "e h" '(counsel-esh-history :wk "Eshell"))
 
   (my-leader-def
-      "h" '(:ignore t :wk "Help")
-      "h f" '(describe-function :wk "Describe function")
-      "h v" '(describe-variable :wk "Describe variable")
-      "h r r" '(reload-init-file :wk "Reload emacs config"))
+    "w" '(:ignore t :wk "Windows")
+    ;; split
+    "w c" '(evil-window-delete :wk "Close window")
+    "w n" '(evil-window-new :wk "New window")
+    "w s" '(evil-window-split :wk "Horizontal split window")
+    "w v" '(evil-window-vsplit :wk "Vertical split window")
+    ;; motion
+    "w h" '(evil-window-left :wk "Window left")
+    "w j" '(evil-window-down :wk "Window down")
+    "w k" '(evil-window-up :wk "Window up")
+    "w l" '(evil-window-right :wk "Window right")
+    "w w" '(evil-window-next :wk "Window next")
+    ;; move
+    "w H" '(buf-move-left :wk "Buffer move left")
+    "w J" '(buf-move-down :wk "Buffer move down")
+    "w K" '(buf-move-up :wk "Buffer move up")
+    "w L" '(buf-move-right :wk "Buffer move right"))
 
   (my-leader-def
-      "t" '(:ignore t :wk "Toggle")
-      "t l" '(display-line-numbers-mode :wk "Toggle line numers")
-      "t t" '(visual-line-mode :wk "Toggle truncated lines")
-      "t v" '(vterm-toggle :wk "Toggle vterm")))
+    "h" '(:ignore t :wk "Help")
+    "h f" '(describe-function :wk "Describe function")
+    "h v" '(describe-variable :wk "Describe variable")
+    "h r r" '(reload-init-file :wk "Reload emacs config"))
+
+  (my-leader-def
+    "t" '(:ignore t :wk "Toggle")
+    "t l" '(display-line-numbers-mode :wk "Toggle line numers")
+    "t t" '(visual-line-mode :wk "Toggle truncated lines")
+    "t n" '(neotree-toggle :wk "Toggle neotree")
+    "t e" '(eshell-toggle :wk "Toggle eshell")
+    "t v" '(vterm-toggle :wk "Toggle vterm")))
 
 (use-package all-the-icons
   :ensure t
@@ -204,6 +212,8 @@
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
+(add-to-list 'default-frame-alist '(alpha-background . 95))
+
 (load-theme 'misterioso t)
 
 (set-face-attribute 'default nil
@@ -239,9 +249,7 @@
   :commands toc-org-enable
   :init (add-hook 'org-mode-hook 'toc-org-enable))
 
-(with-eval-after-load 'diminish
-  (diminish 'org-indent-mode)
-  (add-hook 'org-mode-hook 'org-indent-mode))
+(eval-after-load 'org-indent '(diminish 'org-indent-mode))
 
 (use-package org-bullets
   :hook 
@@ -249,6 +257,13 @@
 
 ;; <a <c <C <e <E <h <l <q <s <v
 (require 'org-tempo)
+
+(use-package eshell-toggle
+  :custom
+  (eshell-toggle-size-fraction 3)
+  (eshell-toggle-use-projectile-root t)
+  (eshell-toggle-run-command nil)
+  (eshell-toggle-init-function #'eshell-toggle-init-ansi-term))
 
 (use-package eshell-syntax-highlighting
   :after esh-mode
@@ -272,8 +287,8 @@
 (use-package vterm-toggle
   :after vterm
   :config
-  (setq vterm-toggle-fullscreen-p nil)
-  ;(setq vterm-toggle-scope 'project)
+  (setq vterm-toggle-fullscreen-p nil
+	vterm-toggle-scope 'project)
   (add-to-list
    'display-buffer-alist
    '((lambda (buffer-or-name _)
@@ -312,6 +327,10 @@
   :diminish
   :hook
   ((org-mode prog-mode) . rainbow-mode))
+
+(use-package projectile
+  :config
+  (projectile-mode 1))
 
 (use-package counsel
   :after ivy
@@ -358,6 +377,41 @@
   :after company
   :diminish
   :hook (company-mode . company-box-mode))
+
+;; (use-package dired-open
+;;   :config
+;;   (setq dired-open-extensions '(("gif" . "sxiv")
+;;                                 ("jpg" . "sxiv")
+;;                                 ("png" . "sxiv")
+;;                                 ("mkv" . "mpv")
+;;                                 ("mp4" . "mpv"))))
+
+;; (use-package peep-dired
+;;   :after dired
+;;   ;; :hook (peep-dired-hook . evil-normalize-keymaps)
+;;   :hook (evil-normalize-keymaps . peep-dired-hook)
+;;   :config
+;;   (evil-define-key 'normal dired-mode-map (kbd "h") 'dired-up-directory)
+;;   ;; (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file) ; use dired-find-file instead if not using dired-open package
+;;   (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-find-file)
+;;   (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file)
+;;   (evil-define-key 'normal peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
+
+(use-package neotree
+  :config
+  (setq neo-smart-open t
+	neo-show-hidden-files t
+	neo-window-width 30
+	neo-window-fixed-size nil
+	inhibit-compacting-font-caches t
+	projectile-switch-project-action 'neotree-projectile-action)
+  (add-hook 'neo-after-create-hook
+	    #'(lambda (_)
+		(with-current-buffer (get-buffer neo-buffer-name)
+		  (make-local-variable 'auto-hscroll-mode)
+		  (setq truncate-lines t
+			word-wrap nil
+			auto-hscroll-mode nil)))))
 
 (use-package flycheck
   :ensure t
